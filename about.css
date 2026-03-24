@@ -162,10 +162,12 @@ h1, h2, h3, h4 { color: #111827; background: none; -webkit-text-fill-color: unse
 .navbar {
   position: fixed; top: 0; left: 0; right: 0;
   z-index: 1000; background: var(--white);
-  border-bottom: 1px solid var(--white);
+  border-bottom: none;
+  box-shadow: none;
   transition: box-shadow var(--transition);
 }
-.navbar.scrolled { box-shadow: var(--shadow-md); }
+/* Avoid grey band under header (shadow + subpixel seam with hero) */
+.navbar.scrolled { box-shadow: none; }
 
 .nav-container {
   max-width: 100%; padding: 0 var(--site-pad);
@@ -249,6 +251,8 @@ h1, h2, h3, h4 { color: #111827; background: none; -webkit-text-fill-color: unse
   min-height: 640px;
   display: flex; align-items: center;
   overflow: hidden; margin-top: 90px;
+  /* Pull up 1px to hide hairline gap between fixed header and hero */
+  transform: translate3d(0, -1px, 0);
   clip-path: polygon(
     0 0, 100% 0,
     100% calc(100% - 40px),
@@ -258,7 +262,6 @@ h1, h2, h3, h4 { color: #111827; background: none; -webkit-text-fill-color: unse
   );
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
-  transform: translateZ(0);
 }
 .about-hero::before {
   content: ''; position: absolute; bottom: 0; left: 0; right: 0;
