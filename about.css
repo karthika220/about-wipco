@@ -168,6 +168,18 @@ h1, h2, h3, h4 { color: #111827; background: none; -webkit-text-fill-color: unse
 }
 /* Avoid grey band under header (shadow + subpixel seam with hero) */
 .navbar.scrolled { box-shadow: none; }
+/* Mask hairline between fixed header and hero (often visible on CDN/Vercel GPU compositing, not localhost) */
+.navbar::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -4px;
+  height: 5px;
+  background: #ffffff;
+  pointer-events: none;
+  z-index: 1001;
+}
 
 .nav-container {
   max-width: 100%; padding: 0 var(--site-pad);
@@ -251,8 +263,8 @@ h1, h2, h3, h4 { color: #111827; background: none; -webkit-text-fill-color: unse
   min-height: 640px;
   display: flex; align-items: center;
   overflow: hidden; margin-top: 90px;
-  /* Pull up 1px to hide hairline gap between fixed header and hero */
-  transform: translate3d(0, -1px, 0);
+  /* Pull up slightly to hide hairline gap (deployed builds may composite differently) */
+  transform: translate3d(0, -2px, 0);
   clip-path: polygon(
     0 0, 100% 0,
     100% calc(100% - 40px),
