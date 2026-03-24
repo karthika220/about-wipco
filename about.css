@@ -192,7 +192,6 @@ h1, h2, h3, h4 { color: #111827; background: none; -webkit-text-fill-color: unse
   flex-shrink: 0;
   object-fit: contain; transition: transform 0.2s ease;
 }
-.chevron path { fill: currentColor; }
 .nav-dropdown:hover .chevron { transform: rotate(180deg); }
 .nav-dropdown { position: relative; }
 
