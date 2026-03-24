@@ -61,9 +61,10 @@ p { font-family: 'Roboto', sans-serif; font-style: normal; font-weight: 400; fon
   margin-right: auto;
 }
 
-/* Keep equal vertical gap between major sections (commitment uses its own padding) */
+/* Keep equal vertical gap between major sections */
 .decades-stage,
 .what-we-do,
+.commitment-section,
 .strengths-section,
 .about-cta {
   padding-top: var(--section-space);
@@ -558,18 +559,15 @@ h1, h2, h3, h4 { color: #111827; background: none; -webkit-text-fill-color: unse
   overflow: visible;
 }
 
-/* Left accent only on first column — avoids vertical rules between grid columns */
 .wwd-card {
   padding: 0 0 0 26px;
   border: none;
+  border-left: 1px solid #d8dce6;
   background: transparent;
   position: relative;
   opacity: 0;
   transform: translateY(28px);
   transition: opacity 0.55s ease, transform 0.55s ease;
-}
-.wwd-grid .wwd-card:nth-child(odd) {
-  border-left: 1px solid #d8dce6;
 }
 .wwd-card.wwd-visible {
   opacity: 1;
@@ -611,32 +609,35 @@ h1, h2, h3, h4 { color: #111827; background: none; -webkit-text-fill-color: unse
 /* ============================================================
    SECTION 4 – OUR COMMITMENT
    PNG image, colour-cycle on outer layers, no hover
-   Single stacked background (no ::before overlay) — avoids a bright top edge on deploy.
    ============================================================ */
 .commitment-section {
-  /* Pull up slightly so no white hairline shows between this block and the section above */
-  margin-top: -2px;
-  padding: 46px var(--site-pad) 42px;
+  background: linear-gradient(150deg, #001b3b 0%, #00122d 58%, #000a22 100%);
   position: relative;
+  padding: 44px var(--site-pad) 42px;
   min-height: calc(100vh - 90px); /* full section-height coverage below navbar */
   overflow: hidden;
   clip-path: none;
-  border-radius: 0;
-  border-top: none;
-  outline: none;
-  box-shadow: none;
-  background:
-    linear-gradient(135deg, rgba(0, 65, 133, 0.12) 0%, rgba(0, 10, 36, 0.35) 100%),
-    linear-gradient(150deg, #001b3b 0%, #00122d 58%, #000a22 100%);
-  background-color: #000a22;
+  border-top-left-radius: 8px;
   display: flex;
   align-items: center; /* vertically center section content */
 }
-/* Explicitly disable legacy notch/overlay pseudos (cache / old CSS) */
-.commitment-section::before,
+.commitment-section::before {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(135deg, rgba(0, 65, 133, 0.12) 0%, rgba(0, 10, 36, 0.35) 100%);
+  z-index: 0; pointer-events: none;
+}
+/* Top slider-style divider notch */
 .commitment-section::after {
-  content: none !important;
-  display: none !important;
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: min(56vw, 760px);
+  height: 42px;
+  background: var(--white);
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 24px 100%, 0 0);
+  z-index: 2;
+  pointer-events: none;
 }
 
 .commitment-content {
